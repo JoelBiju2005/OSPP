@@ -1,0 +1,23 @@
+Write a C program to demonstrate process creation using the fork() system call . The child
+process prints its own Process ID (PID) and its parent’s Process ID (PPID). The parent process
+prints its own Process ID (PID) and the child’s Process ID.
+
+#include <stdio.h>
+#include <unistd.h>
+int main() {
+pid_t pid = fork();
+if (pid < 0) {
+perror("fork failed");
+return 1;
+} else if (pid == 0) {
+printf("Child process: PID=%d, Parent PID=%d\n", getpid(), getppid());
+} else {
+printf("Parent process: PID=%d, Child PID=%d\n", getpid(), pid);
+}
+return 0;
+}
+
+
+Expected output:
+Parent process: PID=1000, Child PID=1001
+Child process: PID=1001, Parent PID=1000
