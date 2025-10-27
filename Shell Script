@@ -1,0 +1,39 @@
+Code 1: Find the largest of two numbers
+
+#!/bin/bash
+echo "Enter two numbers: "
+read a b
+
+if [ $a -gt $b ]
+then
+    echo "$a is the largest number."
+elif [ $b -gt $a ]
+then
+    echo "$b is the largest number."
+else
+    echo "Both numbers are equal."
+fi
+
+
+Code 2: Check whether a number is even or odd
+#!/bin/bash
+
+echo "Enter a number: "
+read num
+
+if [ $((num % 2)) -eq 0 ]
+then
+    echo "The number is even."
+else
+    echo "The number is odd."
+fi
+
+
+✅ Explanation:
+
+#!/bin/bash — Declares the script interpreter.
+read — Takes user input.
+if, elif, else, fi — Used for conditional branching.
+$((expression)) — Used for arithmetic operations.
+-gt → greater than, -eq → equal to.
+
