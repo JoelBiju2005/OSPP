@@ -1,0 +1,16 @@
+Write a c program to demonstrate If exec succeeds, it never returns; the
+new program takes over.
+
+
+
+#include <stdio.h>
+#include <unistd.h>
+int main() {
+printf("Before exec: PID = %d\n", getpid());
+// Replace current program with "ls"
+execlp("ls", "ls", NULL);
+printf("After exec: PID = %d\n", getpid());
+// This line will only run if exec fails
+perror("exec failed");
+return 0;
+}
