@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+char buf1[] = "Message from Parent";
+char buf2[80];
+
+int main() {
+    int fd[2];
+    pipe(fd); // Create pipe
+
+    if (fork() > 0) //child
+  { 
+        write(fd[1], buf1, strlen(buf1)+1);
+        close(fd[1]);
+    } else
+    {     //parent
+        read(fd[0], buf2, sizeof(buf2));
+        printf("Child read: %s\n", buf2);
+        close(fd[0]);
+    }
+    return 0;
+}
+
+Expected Output:
+Child read: Message from Parent
