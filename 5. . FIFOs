@@ -1,0 +1,57 @@
+FIFOs (Named Pipes)  Note: Use Two Terminal
+•	Allow communication between unrelated processes.
+•	Created using mkfifo(const char *path, mode_t mode).
+•	Processes open the FIFO using open(), then read/write like a regular file.
+•	Can include timestamps using gettimeofday() for precise timing of communication.
+// C program to implement one side of FIFO
+// This side writes first, then reads
+
+
+
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main()
+{
+    int fd;
+    char * myfifo = "/tmp/myfifo";
+    mkfifo(myfifo, 0666);
+    char arr2[80];
+    while (1)
+    {
+        fd = open(myfifo, O_WRONLY);
+        fgets(arr2, 80, stdin);
+        write(fd, arr2, strlen(arr2)+1);
+        close(fd);
+        }
+    return 0;
+}
+
+// C program to implement one side of FIFO
+// This side reads first, then reads
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main()
+{
+    int fd1;
+    char * myfifo = "/tmp/myfifo";
+    mkfifo(myfifo, 0666);
+    char str1[80];
+    while (1)
+    {
+        fd1 = open(myfifo,O_RDONLY);
+        read(fd1, str1, 80);
+        printf("User1: %s\n", str1);
+        close(fd1);
+    }
+    return 0;
+}
